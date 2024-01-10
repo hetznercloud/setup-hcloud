@@ -1,0 +1,30 @@
+name: Setup the Hetzner Cloud CLI
+description: Download the Hetzner Cloud CLI and add it to the PATH.
+author: Hetzner Cloud GmbH
+
+branding:
+  icon: terminal
+  color: red
+
+inputs:
+  github-token:
+    description: >
+      A Personal Access Token or the Github Token to access the GitHub API. If
+      none provided it will use the default Github Token.
+    default: ${{ github.token }}
+    required: false
+
+  hcloud-version:
+    description: >
+      Version of Hetzner Cloud CLI to install. Using `latest` will install the
+      latest version of the tool.
+    default: latest
+    required: false
+
+outputs:
+  hcloud-version:
+    description: Version of the Hetzner Cloud CLI that was installed.
+
+runs:
+  using: node20
+  main: dist/index.js

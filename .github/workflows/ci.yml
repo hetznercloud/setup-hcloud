@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check-dist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run bundle
+
+      - name: Check for diff
+        run: git diff --exit-code --ignore-space-at-eol --text -- dist/
+
+      - name: Show warning
+        if: failure()
+        run: echo "::error title=Outdated build files::Make sure commit the build output files!"
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run lint
+
+      - run: npm run test -- --ci
+
+  test-action:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./
+        with:
+          hcloud-version: v1.41.1
+
+      - run: hcloud version
