@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "bootstrap-sha": "24a003816a799fe4e7763d6917bb512db237d412",
+  "include-component-in-tag": false,
+  "include-v-in-tag": true,
+  "packages": {
+    ".": {
+      "release-type": "node",
+      "package-name": "setup-hcloud",
+      "extra-files": ["src/version.ts"]
+    }
+  }
+}
