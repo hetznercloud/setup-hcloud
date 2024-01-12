@@ -32873,9 +32873,7 @@ exports.getArch = getArch;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.handleVersion = void 0;
-async function handleVersion(
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-octokit, version) {
+async function handleVersion(octokit, version) {
     if (version === 'latest') {
         const release = await octokit.rest.repos.getLatestRelease({
             owner: 'hetznercloud',

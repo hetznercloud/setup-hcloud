@@ -1,6 +1,7 @@
+import { GitHub } from '@actions/github/lib/utils'
+
 export async function handleVersion(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  octokit: any,
+  octokit: InstanceType<typeof GitHub>,
   version: string
 ): Promise<string> {
   if (version === 'latest') {
