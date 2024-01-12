@@ -32926,7 +32926,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
-const version_1 = __nccwpck_require__(1946);
 const fetch_binary_1 = __nccwpck_require__(9880);
 const handle_version_1 = __nccwpck_require__(3009);
 /**
@@ -32938,7 +32937,7 @@ async function run() {
         const githubTokenInput = core.getInput('github-token');
         const versionInput = core.getInput('hcloud-version');
         const octokit = github.getOctokit(githubTokenInput, {
-            userAgent: `setup-hcloud/${version_1.VERSION}`
+            userAgent: 'setup-hcloud'
         });
         const version = await (0, handle_version_1.handleVersion)(octokit, versionInput);
         const binaryPath = await (0, fetch_binary_1.fetchBinary)(version);
@@ -32952,18 +32951,6 @@ async function run() {
     }
 }
 exports.run = run;
-
-
-/***/ }),
-
-/***/ 1946:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.VERSION = void 0;
-exports.VERSION = '0.1.0'; // x-release-please-version
 
 
 /***/ }),

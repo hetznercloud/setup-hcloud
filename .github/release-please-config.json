@@ -6,8 +6,7 @@
   "packages": {
     ".": {
       "release-type": "node",
-      "package-name": "setup-hcloud",
-      "extra-files": ["src/version.ts"]
+      "package-name": "setup-hcloud"
     }
   }
 }

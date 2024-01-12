@@ -1,6 +1,5 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
-import { VERSION } from './version'
 import { fetchBinary } from './fetch-binary'
 import { handleVersion } from './handle-version'
 
@@ -14,7 +13,7 @@ export async function run(): Promise<void> {
     const versionInput: string = core.getInput('hcloud-version')
 
     const octokit = github.getOctokit(githubTokenInput, {
-      userAgent: `setup-hcloud/${VERSION}`
+      userAgent: 'setup-hcloud'
     })
 
     const version = await handleVersion(octokit, versionInput)
