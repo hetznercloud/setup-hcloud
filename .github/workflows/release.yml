@@ -1,0 +1,28 @@
+name: Release
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  update_major_tag:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.HCLOUD_BOT_TOKEN }}
+          fetch-depth: 0
+
+      - name: Extract major from version
+        id: major
+        run: awk -F '.' '{print "major=" $1}' <<< '${{ github.event.release.tag_name }}' >> "$GITHUB_OUTPUT"
+
+      - name: Update major tag
+        run: git tag --force "${{ steps.major.outputs.major }}" "${{ github.event.release.tag_name }}"
+
+      - name: Push updated major tag
+        run: git push --force origin "${{ steps.major.outputs.major }}"
