@@ -28,7 +28,7 @@
   },
   "scripts": {
     "bundle": "npm run format && npm run package",
-    "format": "prettier --write **/*.{ts,json,yml,yaml}",
+    "format": "prettier --write **/*.{js,ts,json,yml,yaml,md}",
     "lint": "npx eslint src",
     "package": "ncc build src/index.ts --license licenses.txt",
     "test": "jest"
