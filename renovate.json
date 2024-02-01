@@ -1,8 +1,15 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>hetznercloud/.github//renovate/default"],
+  "extends": [
+    "github>hetznercloud/.github//renovate/default",
+    "config:js-app",
+    ":automergeLinters",
+    ":automergeTesters",
+    ":automergeTypes"
+  ],
   "lockFileMaintenance": {
     "enabled": true,
     "schedule": ["before 4am on monday"]
-  }
+  },
+  "automergeSchedule": ["before 4am on tuesday"]
 }
