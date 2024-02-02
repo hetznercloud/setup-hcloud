@@ -11,5 +11,5 @@
     "enabled": true,
     "schedule": ["before 4am on monday"]
   },
-  "automergeSchedule": ["before 4am on tuesday"]
+  "schedule": ["before 4am on tuesday"]
 }
