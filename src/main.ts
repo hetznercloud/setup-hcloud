@@ -16,6 +16,7 @@ export async function run(): Promise<void> {
       userAgent: 'setup-hcloud'
     })
 
+    console.log('ok')
     const version = await handleVersion(octokit, versionInput)
 
     const binaryPath = await fetchBinary(version)
