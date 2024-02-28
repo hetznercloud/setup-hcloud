@@ -28,6 +28,11 @@ jobs:
       - name: Check for diff
         run: git diff --exit-code --ignore-space-at-eol --text -- dist/
 
+      - if: failure() && github.event_name == 'pull_request'
+        uses: pre-commit-ci/lite-action@v1.0.2
+        with:
+          msg: "chore: rebuild dist"
+
       - name: Show warning
         if: failure()
         run: echo "::error title=Outdated build files::Make sure commit the build output files!"
