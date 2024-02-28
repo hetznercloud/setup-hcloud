@@ -29,9 +29,7 @@ jobs:
         run: git diff --exit-code --ignore-space-at-eol --text -- dist/
 
       - if: failure() && github.event_name == 'pull_request'
-        uses: pre-commit-ci/lite-action@v1.0.2
-        with:
-          msg: "chore: rebuild dist"
+        uses: autofix-ci/action@v1.3
 
       - name: Show warning
         if: failure()
