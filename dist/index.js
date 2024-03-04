@@ -5129,7 +5129,7 @@ __export(dist_src_exports, {
 module.exports = __toCommonJS(dist_src_exports);
 
 // pkg/dist-src/version.js
-var VERSION = "9.2.0";
+var VERSION = "9.2.1";
 
 // pkg/dist-src/normalize-paginated-list-response.js
 function normalizePaginatedListResponse(response) {
@@ -5528,7 +5528,7 @@ __export(dist_src_exports, {
 module.exports = __toCommonJS(dist_src_exports);
 
 // pkg/dist-src/version.js
-var VERSION = "10.4.0";
+var VERSION = "10.4.1";
 
 // pkg/dist-src/generated/endpoints.js
 var Endpoints = {
