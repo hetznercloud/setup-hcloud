@@ -25,7 +25,7 @@ steps:
 steps:
   - uses: hetznercloud/setup-hcloud@v1
     with:
-      version: v1.41.1
+      hcloud-version: v1.41.1
 
   - run: hcloud server-type list
     env:
