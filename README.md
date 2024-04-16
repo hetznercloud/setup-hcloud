@@ -1,6 +1,7 @@
 # setup-hcloud
 
 [![CI](https://github.com/hetznercloud/setup-hcloud/actions/workflows/ci.yml/badge.svg)](https://github.com/hetznercloud/setup-hcloud/actions/workflows/ci.yml)
+[![Codecov](https://codecov.io/gh/hetznercloud/setup-hcloud/graph/badge.svg?token=R4YEGxLNvM)](https://codecov.io/gh/hetznercloud/setup-hcloud/tree/main)
 
 This action installs the [Hetzner Cloud CLI](https://github.com/hetznercloud/cli) in your `PATH`.
 
