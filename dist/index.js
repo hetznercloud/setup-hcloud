@@ -33082,7 +33082,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getArch = exports.getPlatform = exports.fetchBinary = void 0;
+exports.fetchBinary = fetchBinary;
+exports.getPlatform = getPlatform;
+exports.getArch = getArch;
 const os_1 = __importDefault(__nccwpck_require__(2037));
 const cache = __importStar(__nccwpck_require__(7784));
 async function fetchBinary(version) {
@@ -33111,7 +33113,6 @@ async function fetchBinary(version) {
     const cachedPath = await cache.cacheDir(extractedPath, cacheName, version, osArch);
     return cachedPath;
 }
-exports.fetchBinary = fetchBinary;
 function getPlatform() {
     const platform = os_1.default.platform();
     switch (platform) {
@@ -33127,7 +33128,6 @@ function getPlatform() {
             throw new Error(`Unsupported operating system platform: ${platform}`);
     }
 }
-exports.getPlatform = getPlatform;
 function getArch() {
     const arch = os_1.default.arch();
     switch (arch) {
@@ -33143,7 +33143,6 @@ function getArch() {
             throw new Error(`Unsupported operating system architecture: ${arch}`);
     }
 }
-exports.getArch = getArch;
 
 
 /***/ }),
@@ -33154,7 +33153,7 @@ exports.getArch = getArch;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.handleVersion = void 0;
+exports.handleVersion = handleVersion;
 async function handleVersion(octokit, version) {
     if (version === 'latest') {
         const release = await octokit.rest.repos.getLatestRelease({
@@ -33171,7 +33170,6 @@ async function handleVersion(octokit, version) {
         return version;
     }
 }
-exports.handleVersion = handleVersion;
 
 
 /***/ }),
@@ -33205,7 +33203,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.run = void 0;
+exports.run = run;
 const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
 const fetch_binary_1 = __nccwpck_require__(9880);
@@ -33232,7 +33230,6 @@ async function run() {
             core.setFailed(error.message);
     }
 }
-exports.run = run;
 
 
 /***/ }),
