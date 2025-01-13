@@ -49,7 +49,7 @@ jobs:
 
       - run: npm run test -- --ci
 
-      - uses: codecov/codecov-action@v4
+      - uses: codecov/codecov-action@v5
         if: >
           !startsWith(github.head_ref, 'renovate/') &&
           !startsWith(github.head_ref, 'release-please--')
