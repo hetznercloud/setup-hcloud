@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/hetznercloud/setup-hcloud/compare/v1.0.1...v1.0.2) (2025-06-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @actions/github to v6.0.1 ([#194](https://github.com/hetznercloud/setup-hcloud/issues/194)) ([94eebc1](https://github.com/hetznercloud/setup-hcloud/commit/94eebc148a69c9d08836c3e409ab8f953ddebce8))
+
 ## [1.0.1](https://github.com/hetznercloud/setup-hcloud/compare/v1.0.0...v1.0.1) (2024-10-21)
 
 
