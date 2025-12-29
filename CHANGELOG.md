@@ -1,5 +1,11 @@
 # Changelog
 
+## [v1.0.3](https://github.com/hetznercloud/setup-hcloud/releases/tag/v1.0.3)
+
+### Bug Fixes
+
+- **deps**: update dependency @actions/core to v2 (#265)
+
 ## [1.0.2](https://github.com/hetznercloud/setup-hcloud/compare/v1.0.1...v1.0.2) (2025-06-19)
 
 
