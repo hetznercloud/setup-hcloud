@@ -6,12 +6,13 @@
  * variables following the pattern `INPUT_<INPUT_NAME>`.
  */
 
+import { jest } from '@jest/globals'
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 
-import * as main from '../main'
-import * as fetchBinary from '../fetch-binary'
-import * as handleVersion from '../handle-version'
+import * as main from '../main.js'
+import * as fetchBinary from '../fetch-binary.js'
+import * as handleVersion from '../handle-version.js'
 
 const runMock = jest.spyOn(main, 'run')
 

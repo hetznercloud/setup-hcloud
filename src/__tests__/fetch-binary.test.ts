@@ -1,6 +1,7 @@
 import os from 'os'
+import { jest } from '@jest/globals'
 import * as cache from '@actions/tool-cache'
-import { fetchBinary } from '../fetch-binary'
+import { fetchBinary } from '../fetch-binary.js'
 
 let platformMock: jest.SpyInstance
 let archMock: jest.SpyInstance

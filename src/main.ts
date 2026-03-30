@@ -1,7 +1,7 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
-import { fetchBinary } from './fetch-binary'
-import { handleVersion } from './handle-version'
+import { fetchBinary } from './fetch-binary.js'
+import { handleVersion } from './handle-version.js'
 
 /**
  * The main function for the action.
