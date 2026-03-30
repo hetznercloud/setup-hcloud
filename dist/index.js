@@ -36005,8 +36005,6 @@ function getArch() {
             return 'armv6';
         case 'arm64':
             return 'arm64';
-        case 'x32':
-            return '386';
         case 'x64':
             return 'amd64';
         default:
