@@ -26,5 +26,5 @@ outputs:
     description: Version of the Hetzner Cloud CLI that was installed.
 
 runs:
-  using: node20
+  using: node24
   main: dist/index.js
