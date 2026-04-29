@@ -1,4 +1,5 @@
-import * as handleVersion from '../handle-version'
+import { jest } from '@jest/globals'
+import * as handleVersion from '../handle-version.js'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let octokitMock: any

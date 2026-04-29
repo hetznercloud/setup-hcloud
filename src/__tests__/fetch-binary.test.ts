@@ -1,47 +1,42 @@
 import os from 'os'
-import * as cache from '@actions/tool-cache'
-import { fetchBinary } from '../fetch-binary'
+import { jest, describe, beforeEach, it, expect } from '@jest/globals'
 
-let platformMock: jest.SpyInstance
-let archMock: jest.SpyInstance
+jest.unstable_mockModule('@actions/tool-cache', () => ({
+  find: jest.fn(),
+  downloadTool: jest.fn(),
+  extractZip: jest.fn(),
+  extractTar: jest.fn(),
+  cacheDir: jest.fn()
+}))
 
-let findMock: jest.SpyInstance
-let downloadToolMock: jest.SpyInstance
-let extractZipMock: jest.SpyInstance
-let extractTarMock: jest.SpyInstance
-let cacheDirMock: jest.SpyInstance
+const cache = await import('@actions/tool-cache')
+const { fetchBinary } = await import('../fetch-binary.js')
 
 describe('fetchBinary', () => {
   beforeEach(() => {
     jest.clearAllMocks()
 
-    platformMock = jest.spyOn(os, 'platform').mockImplementation()
-    archMock = jest.spyOn(os, 'arch').mockImplementation()
-
-    findMock = jest.spyOn(cache, 'find').mockImplementation()
-    downloadToolMock = jest.spyOn(cache, 'downloadTool').mockImplementation()
-    extractZipMock = jest.spyOn(cache, 'extractZip').mockImplementation()
-    extractTarMock = jest.spyOn(cache, 'extractTar').mockImplementation()
-    cacheDirMock = jest.spyOn(cache, 'cacheDir').mockImplementation()
+    jest.spyOn(os, 'platform').mockImplementation()
+    jest.spyOn(os, 'arch').mockImplementation()
   })
 
   it('download linux arm64', async () => {
-    platformMock.mockImplementationOnce(() => 'linux')
-    archMock.mockImplementationOnce(() => 'arm64')
+    jest.spyOn(os, 'platform').mockReturnValueOnce('linux')
+    jest.spyOn(os, 'arch').mockReturnValueOnce('arm64')
 
-    findMock.mockImplementationOnce(() => '')
-    downloadToolMock.mockImplementationOnce(() => '/download/path')
-    extractTarMock.mockImplementationOnce(() => '/extract/path')
-    cacheDirMock.mockImplementationOnce(() => '/cached/path')
+    jest.mocked(cache.find).mockReturnValueOnce('')
+    jest.mocked(cache.downloadTool).mockResolvedValueOnce('/download/path')
+    jest.mocked(cache.extractTar).mockResolvedValueOnce('/extract/path')
+    jest.mocked(cache.cacheDir).mockResolvedValueOnce('/cached/path')
 
     const binaryPath = await fetchBinary('v1.41.1')
 
-    expect(findMock).toHaveBeenCalledWith('hcloud_linux', 'v1.41.1', 'arm64')
-    expect(downloadToolMock).toHaveBeenCalledWith(
+    expect(cache.find).toHaveBeenCalledWith('hcloud_linux', 'v1.41.1', 'arm64')
+    expect(cache.downloadTool).toHaveBeenCalledWith(
       'https://github.com/hetznercloud/cli/releases/download/v1.41.1/hcloud-linux-arm64.tar.gz'
     )
-    expect(extractTarMock).toHaveBeenCalledWith('/download/path')
-    expect(cacheDirMock).toHaveBeenCalledWith(
+    expect(cache.extractTar).toHaveBeenCalledWith('/download/path')
+    expect(cache.cacheDir).toHaveBeenCalledWith(
       '/extract/path',
       'hcloud_linux',
       'v1.41.1',
@@ -52,22 +47,26 @@ describe('fetchBinary', () => {
   })
 
   it('download windows x64', async () => {
-    platformMock.mockImplementationOnce(() => 'win32')
-    archMock.mockImplementationOnce(() => 'x64')
+    jest.spyOn(os, 'platform').mockReturnValueOnce('win32')
+    jest.spyOn(os, 'arch').mockReturnValueOnce('x64')
 
-    findMock.mockImplementationOnce(() => '')
-    downloadToolMock.mockImplementationOnce(() => '/download/path')
-    extractZipMock.mockImplementationOnce(() => '/extract/path')
-    cacheDirMock.mockImplementationOnce(() => '/cached/path')
+    jest.mocked(cache.find).mockReturnValueOnce('')
+    jest.mocked(cache.downloadTool).mockResolvedValueOnce('/download/path')
+    jest.mocked(cache.extractZip).mockResolvedValueOnce('/extract/path')
+    jest.mocked(cache.cacheDir).mockResolvedValueOnce('/cached/path')
 
     const binaryPath = await fetchBinary('v1.41.1')
 
-    expect(findMock).toHaveBeenCalledWith('hcloud_windows', 'v1.41.1', 'amd64')
-    expect(downloadToolMock).toHaveBeenCalledWith(
+    expect(cache.find).toHaveBeenCalledWith(
+      'hcloud_windows',
+      'v1.41.1',
+      'amd64'
+    )
+    expect(cache.downloadTool).toHaveBeenCalledWith(
       'https://github.com/hetznercloud/cli/releases/download/v1.41.1/hcloud-windows-amd64.zip'
     )
-    expect(extractZipMock).toHaveBeenCalledWith('/download/path')
-    expect(cacheDirMock).toHaveBeenCalledWith(
+    expect(cache.extractZip).toHaveBeenCalledWith('/download/path')
+    expect(cache.cacheDir).toHaveBeenCalledWith(
       '/extract/path',
       'hcloud_windows',
       'v1.41.1',
@@ -78,18 +77,18 @@ describe('fetchBinary', () => {
   })
 
   it('download linux arm64 cached', async () => {
-    platformMock.mockImplementationOnce(() => 'linux')
-    archMock.mockImplementationOnce(() => 'arm64')
+    jest.spyOn(os, 'platform').mockReturnValueOnce('linux')
+    jest.spyOn(os, 'arch').mockReturnValueOnce('arm64')
 
-    findMock.mockImplementationOnce(() => '/cached/path')
+    jest.mocked(cache.find).mockReturnValueOnce('/cached/path')
 
     const binaryPath = await fetchBinary('v1.41.1')
 
-    expect(findMock).toHaveBeenCalledWith('hcloud_linux', 'v1.41.1', 'arm64')
+    expect(cache.find).toHaveBeenCalledWith('hcloud_linux', 'v1.41.1', 'arm64')
 
-    expect(downloadToolMock).not.toHaveBeenCalled()
-    expect(extractTarMock).not.toHaveBeenCalled()
-    expect(cacheDirMock).not.toHaveBeenCalled()
+    expect(cache.downloadTool).not.toHaveBeenCalled()
+    expect(cache.extractTar).not.toHaveBeenCalled()
+    expect(cache.cacheDir).not.toHaveBeenCalled()
 
     expect(binaryPath).toEqual('/cached/path')
   })
