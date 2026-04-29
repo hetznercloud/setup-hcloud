@@ -13,7 +13,7 @@ The environment variable `HCLOUD_TOKEN` is required for hcloud to work properly.
 
 ```yaml
 steps:
-  - uses: hetznercloud/setup-hcloud@v1
+  - uses: hetznercloud/setup-hcloud@v2
 
   - run: hcloud server-type list
     env:
@@ -24,7 +24,7 @@ steps:
 
 ```yaml
 steps:
-  - uses: hetznercloud/setup-hcloud@v1
+  - uses: hetznercloud/setup-hcloud@v2
     with:
       hcloud-version: v1.41.1
 
