@@ -1,5 +1,22 @@
 # Changelog
 
+## [v2.0.0](https://github.com/hetznercloud/setup-hcloud/releases/tag/v2.0.0)
+
+### Features
+
+- **BREAKING**: drop x32 architecture (#280)
+- **BREAKING**: **deps**: update node.js to v24 (#250)
+- **BREAKING**: package is now ESM-only
+
+### Bug Fixes
+
+- **deps**: update dependency @actions/core to v2 (#265)
+- **deps**: update dependency @actions/github to v9
+- **deps**: update dependency @actions/core to v3
+- **deps**: update dependency @actions/core to v3.0.1 (#277)
+- **deps**: update dependency @actions/github to v9.1.1 (#278)
+- **deps**: update dependency @actions/tool-cache to v4 (#290)
+
 ## [1.0.2](https://github.com/hetznercloud/setup-hcloud/compare/v1.0.1...v1.0.2) (2025-06-19)
 
 
