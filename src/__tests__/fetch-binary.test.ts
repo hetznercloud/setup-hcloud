@@ -57,7 +57,11 @@ describe('fetchBinary', () => {
 
     const binaryPath = await fetchBinary('v1.41.1')
 
-    expect(cache.find).toHaveBeenCalledWith('hcloud_windows', 'v1.41.1', 'amd64')
+    expect(cache.find).toHaveBeenCalledWith(
+      'hcloud_windows',
+      'v1.41.1',
+      'amd64'
+    )
     expect(cache.downloadTool).toHaveBeenCalledWith(
       'https://github.com/hetznercloud/cli/releases/download/v1.41.1/hcloud-windows-amd64.zip'
     )

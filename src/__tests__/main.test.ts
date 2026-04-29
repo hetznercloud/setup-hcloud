@@ -31,7 +31,9 @@ describe('action', () => {
 
     jest.mocked(handleVersion).mockResolvedValue('v1.41.1')
     jest.mocked(fetchBinary).mockResolvedValue('/binary/path')
-    jest.mocked(github.getOctokit).mockReturnValue({} as ReturnType<typeof github.getOctokit>)
+    jest
+      .mocked(github.getOctokit)
+      .mockReturnValue({} as ReturnType<typeof github.getOctokit>)
   })
 
   it('happy path', async () => {
@@ -68,7 +70,9 @@ describe('action', () => {
       }
     })
 
-    jest.mocked(handleVersion).mockRejectedValueOnce(new Error('some error occurred'))
+    jest
+      .mocked(handleVersion)
+      .mockRejectedValueOnce(new Error('some error occurred'))
 
     await run()
 
