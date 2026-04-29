@@ -1,50 +1,41 @@
-/**
- * Unit tests for the action's main functionality, src/main.ts
- *
- * These should be run as if the action was called from a workflow.
- * Specifically, the inputs listed in `action.yml` should be set as environment
- * variables following the pattern `INPUT_<INPUT_NAME>`.
- */
+import { jest, describe, beforeEach, it, expect } from '@jest/globals'
 
-import { jest } from '@jest/globals'
-import * as core from '@actions/core'
-import * as github from '@actions/github'
+jest.unstable_mockModule('../fetch-binary.js', () => ({
+  fetchBinary: jest.fn()
+}))
 
-import * as main from '../main.js'
-import * as fetchBinary from '../fetch-binary.js'
-import * as handleVersion from '../handle-version.js'
+jest.unstable_mockModule('../handle-version.js', () => ({
+  handleVersion: jest.fn()
+}))
 
-const runMock = jest.spyOn(main, 'run')
+jest.unstable_mockModule('@actions/core', () => ({
+  getInput: jest.fn(),
+  addPath: jest.fn(),
+  setOutput: jest.fn(),
+  setFailed: jest.fn()
+}))
 
-let handleVersionMock: jest.SpyInstance
-let fetchBinaryMock: jest.SpyInstance
+jest.unstable_mockModule('@actions/github', () => ({
+  getOctokit: jest.fn()
+}))
 
-let getInputMock: jest.SpyInstance
-let getOctokitMock: jest.SpyInstance
-let addPathMock: jest.SpyInstance
-let setOutputMock: jest.SpyInstance
-let setFailedMock: jest.SpyInstance
+const { run } = await import('../main.js')
+const { fetchBinary } = await import('../fetch-binary.js')
+const { handleVersion } = await import('../handle-version.js')
+const core = await import('@actions/core')
+const github = await import('@actions/github')
 
 describe('action', () => {
   beforeEach(() => {
     jest.clearAllMocks()
 
-    handleVersionMock = jest
-      .spyOn(handleVersion, 'handleVersion')
-      .mockImplementation(async () => 'v1.41.1')
-    fetchBinaryMock = jest
-      .spyOn(fetchBinary, 'fetchBinary')
-      .mockImplementation(async () => '/binary/path')
-
-    getInputMock = jest.spyOn(core, 'getInput').mockImplementation()
-    getOctokitMock = jest.spyOn(github, 'getOctokit').mockImplementation()
-    addPathMock = jest.spyOn(core, 'addPath').mockImplementation()
-    setOutputMock = jest.spyOn(core, 'setOutput').mockImplementation()
-    setFailedMock = jest.spyOn(core, 'setFailed').mockImplementation()
+    jest.mocked(handleVersion).mockResolvedValue('v1.41.1')
+    jest.mocked(fetchBinary).mockResolvedValue('/binary/path')
+    jest.mocked(github.getOctokit).mockReturnValue({} as ReturnType<typeof github.getOctokit>)
   })
 
   it('happy path', async () => {
-    getInputMock.mockImplementation((name: string): string => {
+    jest.mocked(core.getInput).mockImplementation((name: string): string => {
       switch (name) {
         case 'hcloud-version':
           return 'latest'
@@ -55,21 +46,18 @@ describe('action', () => {
       }
     })
 
-    getOctokitMock.mockImplementationOnce(() => null)
+    await run()
 
-    await main.run()
-    expect(runMock).toHaveReturned()
-    expect(setFailedMock).not.toHaveBeenCalled()
-
-    expect(getOctokitMock).toHaveBeenCalled()
-    expect(handleVersionMock).toHaveBeenCalled()
-    expect(fetchBinaryMock).toHaveBeenCalledWith('v1.41.1')
-    expect(addPathMock).toHaveBeenCalledWith('/binary/path')
-    expect(setOutputMock).toHaveBeenCalledWith('hcloud-version', 'v1.41.1')
+    expect(core.setFailed).not.toHaveBeenCalled()
+    expect(github.getOctokit).toHaveBeenCalled()
+    expect(handleVersion).toHaveBeenCalled()
+    expect(fetchBinary).toHaveBeenCalledWith('v1.41.1')
+    expect(core.addPath).toHaveBeenCalledWith('/binary/path')
+    expect(core.setOutput).toHaveBeenCalledWith('hcloud-version', 'v1.41.1')
   })
 
   it('failed', async () => {
-    getInputMock.mockImplementation((name: string): string => {
+    jest.mocked(core.getInput).mockImplementation((name: string): string => {
       switch (name) {
         case 'hcloud-version':
           return 'latest'
@@ -80,14 +68,10 @@ describe('action', () => {
       }
     })
 
-    getOctokitMock.mockImplementationOnce(() => null)
-    handleVersionMock.mockImplementation(async () => {
-      throw new Error('some error occurred')
-    })
+    jest.mocked(handleVersion).mockRejectedValueOnce(new Error('some error occurred'))
 
-    await main.run()
-    expect(runMock).toHaveReturned()
+    await run()
 
-    expect(setFailedMock).toHaveBeenCalledWith('some error occurred')
+    expect(core.setFailed).toHaveBeenCalledWith('some error occurred')
   })
 })
