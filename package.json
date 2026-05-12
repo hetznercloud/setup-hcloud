@@ -41,7 +41,7 @@
     "@actions/tool-cache": "4.0.0"
   },
   "devDependencies": {
-    "@eslint/compat": "2.0.5",
+    "@eslint/compat": "2.1.0",
     "@eslint/eslintrc": "3.3.5",
     "@eslint/js": "10.0.1",
     "@jest/globals": "30.3.0",
