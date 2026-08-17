@@ -1,7 +1,7 @@
 {
   "name": "setup-hcloud",
   "description": "Github action to install the Hetzner Cloud CLI",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "",
   "type": "module",
   "private": true,
