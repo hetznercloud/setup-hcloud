@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.0.1](https://github.com/hetznercloud/setup-hcloud/releases/tag/v2.0.1)
+
+[Compare to previous version](https://github.com/hetznercloud/setup-hcloud/compare/v2.0.0...v2.0.1)
+
+### Bug Fixes
+
+- updates dependencies ([f86a079](https://github.com/hetznercloud/setup-hcloud/commit/f86a079cef0cfec1a24bb19a8dd9ce58ff043db9))
+
 ## [v2.0.0](https://github.com/hetznercloud/setup-hcloud/releases/tag/v2.0.0)
 
 ### Features
